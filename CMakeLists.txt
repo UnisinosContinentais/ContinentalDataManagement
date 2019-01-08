@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.5)
 project(continentaldatamanagement VERSION 1.0.0 LANGUAGES CXX)
 
+add_definitions(-DMAKE_CONTINENTALDATAMANAGEMENT_LIB)
+
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 # Instruct CMake to run moc automatically when needed
@@ -33,6 +35,8 @@ add_library(continentaldatamanagement
 #Add an alias so that library can be used inside the build tree, e.g. when testing
 add_library(ContinentalDataManagement::continentaldatamanagement ALIAS continentaldatamanagement)
 
+set_target_properties(continentaldatamanagement PROPERTIES DEBUG_POSTFIX "_d")
+
 #Set target properties
 target_include_directories(continentaldatamanagement
     PUBLIC
@@ -63,6 +67,7 @@ install(TARGETS continentaldatamanagement
     EXPORT continentaldatamanagement-targets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION "lib"
 )
 
 #This is required so that the exported target has the name ContinentalDataManagement and not continentaldatamanagement

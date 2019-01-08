@@ -4,23 +4,30 @@
 #include <vector>
 #include <cmath>
 
-#include "continentaldatamanagement/raster.h"
-#include "continentaldatamanagement/resampledata.h"
-#include "continentaldatamanagement/reclassparameters.h"
+#include "continental/datamanagement/raster.h"
+#include "continental/datamanagement/resampledata.h"
+#include "continental/datamanagement/reclassparameters.h"
 
-namespace ContinentalDataManagement
+#include "continental/datamanagement/continentaldatamanagement_export.h"
+
+namespace Continental
 {
-	class SpatialAnalyst
-	{
-        public:
+namespace DataManagement
+{
+class CONTINENTALDATAMANAGEMENT_EXPORT SpatialAnalyst
+{
+    public:
+        static constexpr double EARTH_SEMI_MAJOR_AXIS = 6378.137;
+        static constexpr double EARTH_SEMI_MINOR_AXIS = 6356.752;
+
         //Realiza a operação de Reclass, com base nos parâmetros específicados
         template<class T>
-        void reclassRaster(Raster<T> &rasterToReclass, std::vector<ReclassParameters> &parameters)
+        void reclassRaster(Raster<T> &rasterToReclass, const std::vector<ReclassParameters> &parameters)
         {
-            size_t limit = rasterToReclass.getRows() * rasterToReclass.getCols();
+            const size_t limit = rasterToReclass.getRows() * rasterToReclass.getCols();
             for (size_t position = 0; position < limit; ++position)
             {
-                for (auto &parameter : parameters) {
+                for (const auto &parameter : parameters) {
                     if (rasterToReclass.getData(position) >= parameter.getLowerBound() && rasterToReclass->getData(position) < parameter.getUpperBound())
                     {
                         rasterToReclass.setData(position, parameter.getNewValue());
@@ -30,17 +37,17 @@ namespace ContinentalDataManagement
             }
         }
 
-        static double areaCell(size_t row, size_t column, double xOrigin, double yOrigin, double cellSize, size_t rows, size_t cols);
-        static double cellLength(double yLatitude, double xLongitude, short relY, short relX, double cellSize);
+        static double areaCell(const size_t row, const size_t column, const double xOrigin, const double yOrigin, const double cellSize, const size_t rows, const size_t cols);
+        static double cellLength(const double yLatitude, const double xLongitude, const short relY, const short relX, const double cellSize);
 
         //Extrair um raster a partir de outro
         template<class T>
-        Raster<T> extractRasterByRaster(Raster<T> &bigRaster, Raster<T> &referenceRaster)
+        Raster<T> extractRasterByRaster(Raster<T> &bigRaster, const Raster<T> &referenceRaster)
         {
             //Compatibiliza as informações do raster grande, com o espaço do raster pequeno
             ResampleData::adjustSpatialData(bigRaster, referenceRaster);
 
-            auto limit = referenceRaster.getRows() * referenceRaster.getCols();
+            const auto limit = referenceRaster.getRows() * referenceRaster.getCols();
             for (size_t position = 0; position < limit; ++position)
             {
                 //Extrai a informação somente para o intervalo onde houverem valores para o raster de referência
@@ -50,7 +57,8 @@ namespace ContinentalDataManagement
 
             return referenceRaster;
         }
-    };
+};
+}
 }
 
 #endif // CONTINENTALDATAMANAGEMENT_SPATIALANALYST_H
