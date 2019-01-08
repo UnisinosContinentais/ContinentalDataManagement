@@ -2,11 +2,10 @@
 
 namespace ContinentalDataManagement
 {
-    ReclassParameters::ReclassParameters(double lowerBound, double upperBound, double newValue)
+    ReclassParameters::ReclassParameters(const double lowerBound, const double upperBound, const double newValue):
+        m_lowerBound(lowerBound), m_upperBound(upperBound + 0.001), m_newValue(newValue)
     {
-        m_lowerBound = lowerBound;
-        m_upperBound = upperBound + 0.001;
-        m_newValue = newValue;
+
     }
 
     double ReclassParameters::getLowerBound() const
