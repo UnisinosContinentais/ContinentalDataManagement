@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.5)
 project(continentaldatamanagement VERSION 1.0.0 LANGUAGES CXX)
 
 add_definitions(-DMAKE_CONTINENTALDATAMANAGEMENT_LIB)
+add_definitions(-D_USE_MATH_DEFINES)
 
 # Find includes in corresponding build directories
 set(CMAKE_INCLUDE_CURRENT_DIR ON)

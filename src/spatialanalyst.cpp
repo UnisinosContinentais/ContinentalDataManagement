@@ -1,7 +1,4 @@
-﻿#ifndef _USE_MATH_DEFINES
-    #define _USE_MATH_DEFINES
-#endif
-#include <cmath>
+﻿#include <cmath>
 
 #include "continental/datamanagement/spatialanalyst.h"
 #include "continental/datamanagement/raster.h"
@@ -28,7 +25,6 @@ double SpatialAnalyst::areaCell(const size_t row, const size_t column, const dou
     double finalArea = ((M_PI * std::pow(valueRN, 2)) / 180) * std::abs(std::sin(yBottom * M_PI / 180) - std::sin(yTop * M_PI / 180));
     finalArea = (finalArea * std::abs(xLeft - xRight)) * 1000000;
     return finalArea;
-
 }
 
 double SpatialAnalyst::cellLength(const double yLatitude, const double /*xLongitude*/, const short relY, const short relX, const double cellSize)
@@ -51,15 +47,21 @@ double SpatialAnalyst::cellLength(const double yLatitude, const double /*xLongit
     //Dependendo da direção relativa a partir de qual a célula veio através do Flowdirection (relX, relY), calcula o comprimento
     //Vertical
     if (relX == 0 && relY != 0)
+    {
         return (valueRN * cellSize * (M_PI / 180.0)) * 0.96194;
+    }
 
     //Horizontal
     if (relX != 0 && relY == 0)
+    {
         return (valueRCIRC * cellSize * (M_PI / 180.0)) * 0.96194;
+    }
 
     //Diagonal
     if (relX != 0 && relY != 0)
+    {
         return std::sqrt((std::pow(valueRN * cellSize * (M_PI / 180.0), 2) + std::pow(valueRCIRC * cellSize * (M_PI / 180.0), 2))) * (1.36039 / 1.414);
+    }
 
     return 0;
 }
