@@ -1,8 +1,8 @@
-#include "continental/datamanagement/reclassparameters.h"
+#include "continental/dataManagement/ReclassParameters.h"
 
-namespace Continental
+namespace continental
 {
-namespace DataManagement
+namespace dataManagement
 {
 ReclassParameters::ReclassParameters(const double lowerBound, const double upperBound, const double newValue):
     m_lowerBound(lowerBound), m_upperBound(upperBound + 0.001), m_newValue(newValue)

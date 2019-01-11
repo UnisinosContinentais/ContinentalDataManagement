@@ -6,12 +6,13 @@
 #include <vector>
 #include <stdexcept>
 #include <limits>
+#include <assert.h>
 
-#include "continental/datamanagement/continentaldatamanagement_export.h"
+#include "continental/dataManagement/export.h"
 
-namespace Continental
+namespace continental
 {
-namespace DataManagement
+namespace dataManagement
 {
 /// <summary>
 /// Classe de raster que deve ser obrigatoriamente herdada por classes derivadas

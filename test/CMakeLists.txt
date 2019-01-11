@@ -6,6 +6,10 @@ execute_process(COMMAND ${CMAKE_COMMAND} -G "${CMAKE_GENERATOR}" .
 if(result)
   message(FATAL_ERROR "CMake step for googletest failed: ${result}")
 endif()
+
+set(CMAKE_CXX_FLAGS_RELEASE "/MT")
+set(CMAKE_CXX_FLAGS_DEBUG "/MTd")
+
 execute_process(COMMAND ${CMAKE_COMMAND} --build .
   RESULT_VARIABLE result
   WORKING_DIRECTORY ${CMAKE_BINARY_DIR}/googletest-download )
@@ -20,6 +24,6 @@ add_subdirectory(${CMAKE_BINARY_DIR}/googletest-src
                  EXCLUDE_FROM_ALL)
 
 # Now simply link against gtest or gtest_main as needed. Eg
-add_executable(iph_data_management_test src/main.cpp)
-target_compile_features(iph_data_management_test PRIVATE cxx_auto_type)
-target_link_libraries(iph_data_management_test gtest_main ContinentalDataManagement::continentaldatamanagement)
+add_executable(ContinentalDataManagementTest src/main.cpp)
+target_compile_features(ContinentalDataManagementTest PRIVATE cxx_auto_type)
+target_link_libraries(ContinentalDataManagementTest gtest_main ContinentalDataManagement::ContinentalDataManagement)

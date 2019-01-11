@@ -7,12 +7,12 @@
 #include <QRegularExpression>
 #include <QTextStream>
 
-#include "continental/datamanagement/raster.h"
-#include "continental/datamanagement/continentaldatamanagement_export.h"
+#include "continental/dataManagement/Raster.h"
+#include "continental/dataManagement/export.h"
 
-namespace Continental
+namespace continental
 {
-namespace DataManagement
+namespace dataManagement
 {
 /// <summary>
 /// Classe de Raster para trabalhar com dados inteiros
@@ -24,8 +24,12 @@ private:
     //Lê um raster e retorna dados em inteiro
     static Raster<T> getASCData(const QString &fileName, const bool onlyHeader)
     {
-        const QRegularExpression regex("\\d+");
+        const QRegularExpression regex("-?[0-9.]+");
         QFile fs(fileName);
+        if (!fs.open(QIODevice::ReadOnly | QIODevice::Text))
+        {
+            throw std::invalid_argument("Error openning file!");
+        }
 
         //Lê a linha do número de colunas
         const size_t cols = regex.match(fs.readLine()).captured(0).toULongLong();
@@ -43,7 +47,7 @@ private:
         Raster<T> raster(rows, cols, xOrigin, yOrigin, cellSize, noData);
 
         //Lê apenas as informações do cabeçalho, caso ativado
-        if (onlyHeader)
+        if (!onlyHeader)
         {
             size_t position = 0;
             for (size_t i = 0; i < rows; ++i)

@@ -4,15 +4,15 @@
 #include <vector>
 #include <cmath>
 
-#include "continental/datamanagement/raster.h"
-#include "continental/datamanagement/resampledata.h"
-#include "continental/datamanagement/reclassparameters.h"
+#include "continental/dataManagement/Raster.h"
+#include "continental/dataManagement/ResampleData.h"
+#include "continental/dataManagement/ReclassParameters.h"
 
-#include "continental/datamanagement/continentaldatamanagement_export.h"
+#include "continental/dataManagement/export.h"
 
-namespace Continental
+namespace continental
 {
-namespace DataManagement
+namespace dataManagement
 {
 class CONTINENTALDATAMANAGEMENT_EXPORT SpatialAnalyst
 {

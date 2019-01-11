@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.5)
-project(continentaldatamanagement VERSION 1.0.0 LANGUAGES CXX)
+project(ContinentalDataManagement VERSION 1.0.0 LANGUAGES CXX)
 
 add_definitions(-DMAKE_CONTINENTALDATAMANAGEMENT_LIB)
 add_definitions(-D_USE_MATH_DEFINES)
@@ -24,22 +24,23 @@ find_package(Qt5Core CONFIG REQUIRED)
 ##############################################
 # Create target and set properties
 
-add_library(continentaldatamanagement
+add_library(ContinentalDataManagement
     SHARED
-    src/resampledata.cpp
-    src/spatialanalyst.cpp
-    src/raster.cpp
-    src/rasterfile.cpp
-    src/reclassparameters.cpp
+    src/ResampleData.cpp
+    src/SpatialAnalyst.cpp
+    src/Raster.cpp
+    src/RasterFile.cpp
+    src/ReclassParameters.cpp
+    src/main.cpp
 )
 
 #Add an alias so that library can be used inside the build tree, e.g. when testing
-add_library(ContinentalDataManagement::continentaldatamanagement ALIAS continentaldatamanagement)
+add_library(ContinentalDataManagement::ContinentalDataManagement ALIAS ContinentalDataManagement)
 
-set_target_properties(continentaldatamanagement PROPERTIES DEBUG_POSTFIX "_d")
+set_target_properties(ContinentalDataManagement PROPERTIES DEBUG_POSTFIX "_d")
 
 #Set target properties
-target_include_directories(continentaldatamanagement
+target_include_directories(ContinentalDataManagement
     PUBLIC
        $<INSTALL_INTERFACE:include>
        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
@@ -47,10 +48,10 @@ target_include_directories(continentaldatamanagement
         ${CMAKE_CURRENT_SOURCE_DIR}/src
 )
 
-target_compile_features(continentaldatamanagement PRIVATE cxx_auto_type)
-target_compile_options(continentaldatamanagement PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wall>)
+target_compile_features(ContinentalDataManagement PRIVATE cxx_auto_type)
+target_compile_options(ContinentalDataManagement PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wall>)
 
-target_link_libraries(continentaldatamanagement
+target_link_libraries(ContinentalDataManagement
 #    PUBLIC
 #        Boost::boost RapidJSON::RapidJSON
 #    PRIVATE
@@ -64,20 +65,20 @@ target_link_libraries(continentaldatamanagement
 include(GNUInstallDirs)
 set(INSTALL_CONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/ContinentalDataManagement)
 
-install(TARGETS continentaldatamanagement
-    EXPORT continentaldatamanagement-targets
+install(TARGETS ContinentalDataManagement
+    EXPORT ContinentalDataManagement-targets
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION "lib"
 )
 
-#This is required so that the exported target has the name ContinentalDataManagement and not continentaldatamanagement
-set_target_properties(continentaldatamanagement PROPERTIES EXPORT_NAME ContinentalDataManagement)
+#This is required so that the exported target has the name ContinentalDataManagement and not ContinentalDataManagement
+set_target_properties(ContinentalDataManagement PROPERTIES EXPORT_NAME ContinentalDataManagement)
 
 install(DIRECTORY include/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 
 #Export the targets to a script
-install(EXPORT continentaldatamanagement-targets
+install(EXPORT ContinentalDataManagement-targets
   FILE
     ContinentalDataManagementTargets.cmake
   NAMESPACE
@@ -114,9 +115,9 @@ install(FILES
 #     ${CMAKE_CURRENT_BINARY_DIR}/FindRapidJSON.cmake
 #     COPYONLY)
 
-export(EXPORT continentaldatamanagement-targets FILE ${CMAKE_CURRENT_BINARY_DIR}/ContinentalDataManagementTargets.cmake NAMESPACE ContinentalDataManagement::)
+export(EXPORT ContinentalDataManagement-targets FILE ${CMAKE_CURRENT_BINARY_DIR}/ContinentalDataManagementTargets.cmake NAMESPACE ContinentalDataManagement::)
 
 #Register package in user's package registry
 export(PACKAGE ContinentalDataManagement)
 
-# add_subdirectory(test)
+add_subdirectory(test)
