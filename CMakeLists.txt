@@ -31,7 +31,6 @@ add_library(ContinentalDataManagement
     src/Raster.cpp
     src/RasterFile.cpp
     src/ReclassParameters.cpp
-    src/main.cpp
 )
 
 #Add an alias so that library can be used inside the build tree, e.g. when testing
