@@ -8,11 +8,11 @@
 #include <limits>
 #include <assert.h>
 
-#include "continental/dataManagement/export.h"
+#include "continental/datamanagement/export.h"
 
 namespace continental
 {
-namespace dataManagement
+namespace datamanagement
 {
 /// <summary>
 /// Classe de raster que deve ser obrigatoriamente herdada por classes derivadas
@@ -21,7 +21,7 @@ namespace dataManagement
 template <class T>
 class Raster
 {
-protected:
+private:
     // Numero Colunas
     size_t m_cols = 0;
     // Numero Linhas
@@ -31,7 +31,7 @@ protected:
     // Resolução do raster
     double m_cellSize = 0;
     // Valor do NODATA
-    short m_noDataValue = 0;
+    int m_noDataValue = 0;
 
     std::vector<T> m_data;
     T m_maxValue;
@@ -80,7 +80,7 @@ public:
     /// <summary>
     /// Retorna o valor para o qual não se tem dados no raster
     /// </summary>
-    short getNoDataValue() const
+    int getNoDataValue() const
     {
         return m_noDataValue;
     }

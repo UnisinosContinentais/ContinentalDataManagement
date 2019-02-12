@@ -3,11 +3,11 @@
 
 #include <cmath>
 #include <stdexcept>
-#include "continental/dataManagement/Raster.h"
+#include "continental/datamanagement/Raster.h"
 
 namespace continental
 {
-namespace dataManagement
+namespace datamanagement
 {
 /// <summary>
 /// Classe que ajusta as matrizes de dados

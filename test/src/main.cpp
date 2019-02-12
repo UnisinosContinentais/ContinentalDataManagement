@@ -1,7 +1,7 @@
-#include <continental/dataManagement/RasterFile.h>
+#include <continental/datamanagement/RasterFile.h>
 #include <gtest/gtest.h>
 
-using namespace continental::dataManagement;
+using namespace continental::datamanagement;
 
 TEST(ContinentalDataManagementTest, RasterFileRead)
 {

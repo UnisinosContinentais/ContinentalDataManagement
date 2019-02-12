@@ -7,12 +7,12 @@
 #include <QRegularExpression>
 #include <QTextStream>
 
-#include "continental/dataManagement/Raster.h"
-#include "continental/dataManagement/export.h"
+#include "continental/datamanagement/Raster.h"
+#include "continental/datamanagement/export.h"
 
 namespace continental
 {
-namespace dataManagement
+namespace datamanagement
 {
 /// <summary>
 /// Classe de Raster para trabalhar com dados inteiros

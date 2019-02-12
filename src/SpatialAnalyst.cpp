@@ -1,12 +1,12 @@
 ﻿#include <cmath>
 
-#include "continental/dataManagement/SpatialAnalyst.h"
-#include "continental/dataManagement/Raster.h"
-#include "continental/dataManagement/ResampleData.h"
+#include "continental/datamanagement/SpatialAnalyst.h"
+#include "continental/datamanagement/Raster.h"
+#include "continental/datamanagement/ResampleData.h"
 
 namespace continental
 {
-namespace dataManagement
+namespace datamanagement
 {
 double SpatialAnalyst::areaCell(const size_t row, const size_t column, const double xll, const double yll, const double cellsize, const size_t rows, const size_t /*cols*/)
 {

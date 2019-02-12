@@ -1,10 +1,10 @@
-﻿#include "continental/dataManagement/ResampleData.h"
+﻿#include "continental/datamanagement/ResampleData.h"
 
 #include <assert.h>
 
 namespace continental
 {
-namespace dataManagement
+namespace datamanagement
 {
 int ResampleData::identifyColumn(const double x, double xOrigin, double cellSize)
 {

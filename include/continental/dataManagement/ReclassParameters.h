@@ -1,11 +1,11 @@
 #ifndef CONTINENTALDATAMANAGEMENT_RECLASSPARAMETERS_H
 #define CONTINENTALDATAMANAGEMENT_RECLASSPARAMETERS_H
 
-#include "continental/dataManagement/export.h"
+#include "continental/datamanagement/export.h"
 
 namespace continental
 {
-namespace dataManagement
+namespace datamanagement
 {
 class CONTINENTALDATAMANAGEMENT_EXPORT ReclassParameters
 {

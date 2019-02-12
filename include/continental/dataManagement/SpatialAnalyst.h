@@ -4,15 +4,15 @@
 #include <vector>
 #include <cmath>
 
-#include "continental/dataManagement/Raster.h"
-#include "continental/dataManagement/ResampleData.h"
-#include "continental/dataManagement/ReclassParameters.h"
+#include "continental/datamanagement/Raster.h"
+#include "continental/datamanagement/ResampleData.h"
+#include "continental/datamanagement/ReclassParameters.h"
 
-#include "continental/dataManagement/export.h"
+#include "continental/datamanagement/export.h"
 
 namespace continental
 {
-namespace dataManagement
+namespace datamanagement
 {
 class CONTINENTALDATAMANAGEMENT_EXPORT SpatialAnalyst
 {
@@ -22,7 +22,7 @@ public:
 
     //Realiza a operação de Reclass, com base nos parâmetros específicados
     template<class T>
-    void reclassRaster(Raster<T> &rasterToReclass, const std::vector<ReclassParameters> &parameters)
+    static void reclassRaster(Raster<T> &rasterToReclass, const std::vector<ReclassParameters> &parameters)
     {
         const size_t limit = rasterToReclass.getRows() * rasterToReclass.getCols();
         for (size_t position = 0; position < limit; ++position)
@@ -42,7 +42,7 @@ public:
 
     //Extrair um raster a partir de outro
     template<class T>
-    Raster<T> extractRasterByRaster(Raster<T> &bigRaster, const Raster<T> &referenceRaster)
+    static Raster<T> extractRasterByRaster(Raster<T> &bigRaster, const Raster<T> &referenceRaster)
     {
         //Compatibiliza as informações do raster grande, com o espaço do raster pequeno
         ResampleData::adjustSpatialData(bigRaster, referenceRaster);
