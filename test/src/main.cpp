@@ -1,4 +1,4 @@
-#include <continental/datamanagement/RasterFile.h>
+    #include <continental/datamanagement/RasterFile.h>
 #include <gtest/gtest.h>
 
 using namespace continental::datamanagement;

@@ -16,9 +16,6 @@ list(INSERT CMAKE_MODULE_PATH 0 ${CMAKE_SOURCE_DIR}/cmake)
 
 ##############################################
 # Declare dependencies
-# find_package(Boost 1.55 REQUIRED COMPONENTS regex)
-# find_package(RapidJSON 1.0 REQUIRED MODULE)
-# Find the QtWidgets library
 find_package(Qt5Core CONFIG REQUIRED)
 
 ##############################################
@@ -119,4 +116,4 @@ export(EXPORT ContinentalDataManagement-targets FILE ${CMAKE_CURRENT_BINARY_DIR}
 #Register package in user's package registry
 export(PACKAGE ContinentalDataManagement)
 
-add_subdirectory(test)
+# add_subdirectory(test)

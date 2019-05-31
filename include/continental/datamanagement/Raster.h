@@ -31,7 +31,7 @@ private:
     // Resolução do raster
     double m_cellSize = 0;
     // Valor do NODATA
-    int m_noDataValue = 0;
+    T m_noDataValue = 0;
 
     std::vector<T> m_data;
     T m_maxValue;
@@ -43,14 +43,7 @@ public:
 
     Raster(size_t rows, size_t cols, double xOrigin, double yOrigin, double cellSize, int noData) : Raster()
     {
-        m_data.resize(rows * cols);
-
-        m_cols = cols;
-        m_rows = rows;
-        m_x_origin = xOrigin;
-        m_y_origin = yOrigin;
-        m_cellSize = cellSize;
-        m_noDataValue = noData;
+        reset(rows, cols, xOrigin, yOrigin, cellSize, noData);
     }
 
     /// <summary>
@@ -80,7 +73,7 @@ public:
     /// <summary>
     /// Retorna o valor para o qual não se tem dados no raster
     /// </summary>
-    int getNoDataValue() const
+    T getNoDataValue() const
     {
         return m_noDataValue;
     }
@@ -129,6 +122,11 @@ public:
         return getData(row * m_cols + column);
     }
 
+    T getData(const int row, const int column) const
+    {
+        return getData(static_cast<size_t>(row), static_cast<size_t>(column));
+    }
+
     void setData(const size_t position, const T value)
     {
         assert(position < m_data.size());
@@ -144,6 +142,18 @@ public:
     const std::vector<T>& getData() const
     {
         return m_data;
+    }
+
+    void reset(size_t rows, size_t cols, double xOrigin, double yOrigin, double cellSize, int noData)
+    {
+        m_cols = cols;
+        m_rows = rows;
+        m_x_origin = xOrigin;
+        m_y_origin = yOrigin;
+        m_cellSize = cellSize;
+        m_noDataValue = noData;
+        m_data.clear();
+        m_data.resize(rows * cols);
     }
 };
 }
