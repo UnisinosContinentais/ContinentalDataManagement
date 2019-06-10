@@ -24,7 +24,7 @@ private:
     //Lê um raster e retorna dados em inteiro
     static Raster<T> getASCData(const QString &fileName, const bool onlyHeader)
     {
-        const QRegularExpression regex("-?[0-9.]+");
+        const QRegularExpression regex("-?[0-9.,]+");
         QFile fs(fileName);
         if (!fs.open(QIODevice::ReadOnly | QIODevice::Text))
         {
@@ -36,11 +36,11 @@ private:
         //Lê a linha do número de linhas
         const size_t rows = regex.match(fs.readLine()).captured(0).toULongLong();
         //Lê a linha da coordenada inferior em X
-        const double xOrigin = regex.match(fs.readLine()).captured(0).toDouble();
+        const double xOrigin = regex.match(fs.readLine()).captured(0).replace(",", ".").toDouble();
         //Lê a linha da coordenada inferior em Y
-        const double yOrigin = regex.match(fs.readLine()).captured(0).toDouble();
+        const double yOrigin = regex.match(fs.readLine()).captured(0).replace(",", ".").toDouble();
         //Lê a linha do cellsize
-        const double cellSize = regex.match(fs.readLine()).captured(0).toDouble();
+        const double cellSize = regex.match(fs.readLine()).captured(0).replace(",", ".").toDouble();
         //Lê a linha do NODATA
         const int noData = regex.match(fs.readLine()).captured(0).toInt();
 
@@ -49,14 +49,14 @@ private:
         //Lê apenas as informações do cabeçalho, caso ativado
         if (!onlyHeader)
         {
-            size_t position = 0;
+            QRegularExpression regexLine("\\s$");
+
             for (size_t i = 0; i < rows; ++i)
             {
-                const auto line = fs.readLine().split(' ');
+                const auto line = QString::fromStdString(fs.readLine().toStdString()).replace(regexLine, "").split(' ');
                 for (size_t j = 0; j < cols; ++j)
                 {
-                    raster.setData(position, static_cast<T>(line[j].toFloat()));
-                    ++position;
+                    raster.setData(i, j, static_cast<T>(line[j].toFloat()));
                 }
             }
         }
@@ -83,16 +83,22 @@ private:
 
         out << "ncols " << raster.getCols() << lineBreaker;
         out << "nrows " << raster.getRows() << lineBreaker;
-        out << "xllcorner " << raster.getXOrigin() << lineBreaker;
-        out << "yllcorner " << raster.getYOrigin() << lineBreaker;
-        out << "cellsize " << raster.getCellSize() << lineBreaker;
+        QRegularExpression regex("([.][1-9]+)0+$");
+        QRegularExpression regex2("[.]0+$");
+        out << "xllcorner " << QString().setNum(raster.getXOrigin(), 'f', 42).replace(regex, "\\1").replace(regex2, "") << lineBreaker;
+        out << "yllcorner " << QString().setNum(raster.getYOrigin(), 'f', 42).replace(regex, "\\1").replace(regex2, "") << lineBreaker;
+        out << "cellsize " << QString().setNum(raster.getCellSize(), 'f', 42).replace(regex, "\\1").replace(regex2, "") << lineBreaker;
         out << "NODATA_value " << raster.getNoDataValue() << lineBreaker;
 
         const size_t cols = raster.getCols();
         const size_t limit = raster.getRows() * cols;
         for (size_t i = 0; i < limit; ++i)
         {
-            out << raster.getData(i) << ((i + 1) % cols == 0 ? lineBreaker : space);
+            out << raster.getData(i) << space;
+            if ((i + 1) % cols == 0)
+            {
+                out << lineBreaker;
+            }
         }
     }
 

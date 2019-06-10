@@ -34,9 +34,8 @@ private:
     T m_noDataValue = 0;
 
     std::vector<T> m_data;
-    T m_maxValue;
 public:
-    Raster() : m_maxValue(std::numeric_limits<T>::min())
+    Raster()
     {
         static_assert(std::is_same<T, short>::value || std::is_same<T, float>::value, "Raster only accepts short or float.");
     }
@@ -105,9 +104,14 @@ public:
     /// <summary>
     /// Retorna o máximo valor dos dados da matriz(y, x) do raster
     /// </summary>
-    T getMaxValue() const
+    T calculateMaxValue() const
     {
-        return m_maxValue;
+        auto maxValue = m_data[0];
+        for (auto item : m_data)
+        {
+            maxValue = std::max(maxValue, item);
+        }
+        return maxValue;
     }
 
     T getData(const size_t position) const
@@ -131,7 +135,7 @@ public:
     {
         assert(position < m_data.size());
 
-        m_data[position] = std::max(m_maxValue, value);
+        m_data[position] = value;
     }
 
     void setData(const size_t row, const size_t column, const T value)
