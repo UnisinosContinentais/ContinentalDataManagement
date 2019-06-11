@@ -113,7 +113,4 @@ install(FILES
 
 export(EXPORT ContinentalDataManagement-targets FILE ${CMAKE_CURRENT_BINARY_DIR}/ContinentalDataManagementTargets.cmake NAMESPACE ContinentalDataManagement::)
 
-#Register package in user's package registry
-export(PACKAGE ContinentalDataManagement)
-
 # add_subdirectory(test)
