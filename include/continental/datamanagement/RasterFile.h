@@ -56,7 +56,7 @@ private:
                 const auto line = QString::fromStdString(fs.readLine().toStdString()).replace(regexLine, "").split(' ');
                 for (size_t j = 0; j < cols; ++j)
                 {
-                    raster.setData(i, j, static_cast<T>(line[j].toFloat()));
+                    raster.setData(i, j, static_cast<T>(line[static_cast<int>(j)].toFloat()));
                 }
             }
         }
@@ -85,9 +85,28 @@ private:
         out << "nrows " << raster.getRows() << lineBreaker;
         QRegularExpression regex("([.][1-9]+)0+$");
         QRegularExpression regex2("[.]0+$");
-        out << "xllcorner " << QString().setNum(raster.getXOrigin(), 'f', 42).replace(regex, "\\1").replace(regex2, "") << lineBreaker;
-        out << "yllcorner " << QString().setNum(raster.getYOrigin(), 'f', 42).replace(regex, "\\1").replace(regex2, "") << lineBreaker;
-        out << "cellsize " << QString().setNum(raster.getCellSize(), 'f', 42).replace(regex, "\\1").replace(regex2, "") << lineBreaker;
+        QRegularExpression regex3("([.]\\d{1,6})\\d+$");
+        out << "xllcorner "
+            << QString()
+                .setNum(raster.getXOrigin(), 'f', 42)
+                .replace(regex, "\\1")
+                .replace(regex2, "")
+                .replace(regex3, "\\1")
+            << lineBreaker;
+        out << "yllcorner "
+            << QString()
+                .setNum(raster.getYOrigin(), 'f', 42)
+                .replace(regex, "\\1")
+                .replace(regex2, "")
+                .replace(regex3, "\\1")
+            << lineBreaker;
+        out << "cellsize "
+            << QString()
+                .setNum(raster.getCellSize(), 'f', 42)
+                .replace(regex, "\\1")
+                .replace(regex2, "")
+                .replace(regex3, "\\1")
+            << lineBreaker;
         out << "NODATA_value " << raster.getNoDataValue() << lineBreaker;
 
         const size_t cols = raster.getCols();
