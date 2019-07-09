@@ -48,7 +48,7 @@ public:
     /// <summary>
     /// Retorna o número de linhas
     /// </summary>
-    size_t getRows() const
+    inline size_t getRows() const
     {
         return m_rows;
     }
@@ -56,7 +56,7 @@ public:
     /// <summary>
     /// Retorna o número de colunas
     /// </summary>
-    size_t getCols() const
+    inline size_t getCols() const
     {
         return m_cols;
     }
@@ -64,7 +64,7 @@ public:
     /// <summary>
     /// Retorna a resolução da grade
     /// </summary>
-    double getCellSize() const
+    inline double getCellSize() const
     {
         return m_cellSize;
     }
@@ -72,7 +72,7 @@ public:
     /// <summary>
     /// Retorna o valor para o qual não se tem dados no raster
     /// </summary>
-    T getNoDataValue() const
+    inline T getNoDataValue() const
     {
         return m_noDataValue;
     }
@@ -80,7 +80,7 @@ public:
     /// <summary>
     /// Retorna o número total de células
     /// </summary>
-    size_t getTotalCells() const
+    inline size_t getTotalCells() const
     {
         return m_cols * m_rows;
     }
@@ -88,7 +88,7 @@ public:
     /// <summary>
     /// Retorna a coordenada X do canto superior da grade
     /// </summary>
-    double getXOrigin() const
+    inline double getXOrigin() const
     {
         return m_x_origin;
     }
@@ -96,7 +96,7 @@ public:
     /// <summary>
     /// Retorna a coordenada Y do canto superior da grade
     /// </summary>
-    double getYOrigin() const
+    inline double getYOrigin() const
     {
         return m_y_origin;
     }
@@ -104,7 +104,7 @@ public:
     /// <summary>
     /// Retorna o máximo valor dos dados da matriz(y, x) do raster
     /// </summary>
-    T calculateMaxValue() const
+    inline T calculateMaxValue() const
     {
         auto maxValue = m_data[0];
         for (auto item : m_data)
@@ -114,41 +114,41 @@ public:
         return maxValue;
     }
 
-    T getData(const size_t position) const
+    inline T getData(const size_t position) const
     {
         assert(position < m_data.size());
 
         return m_data[position];
     }
 
-    T getData(const size_t row, const size_t column) const
+    inline T getData(const size_t row, const size_t column) const
     {
         return getData(row * m_cols + column);
     }
 
-    T getData(const int row, const int column) const
+    inline T getData(const int row, const int column) const
     {
         return getData(static_cast<size_t>(row), static_cast<size_t>(column));
     }
 
-    void setData(const size_t position, const T value)
+    inline void setData(const size_t position, const T value)
     {
         assert(position < m_data.size());
 
         m_data[position] = value;
     }
 
-    void setData(const size_t row, const size_t column, const T value)
+    inline void setData(const size_t row, const size_t column, const T value)
     {
         setData(row * m_cols + column, value);
     }
 
-    const std::vector<T>& getData() const
+    inline const std::vector<T>& getData() const
     {
         return m_data;
     }
 
-    void reset(size_t rows, size_t cols, double xOrigin, double yOrigin, double cellSize, int noData)
+    inline void reset(size_t rows, size_t cols, double xOrigin, double yOrigin, double cellSize, int noData)
     {
         m_cols = cols;
         m_rows = rows;
