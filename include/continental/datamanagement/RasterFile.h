@@ -61,7 +61,7 @@ private:
             }
         }
 
-        return raster;
+        return std::move(raster);
     }
 
     /// <summary>
@@ -92,6 +92,7 @@ private:
                 .replace(regex, "\\1")
                 .replace(regex2, "")
                 .replace(regex3, "\\1")
+                .replace(".", ",")
             << lineBreaker;
         out << "yllcorner "
             << QString()
@@ -99,6 +100,7 @@ private:
                 .replace(regex, "\\1")
                 .replace(regex2, "")
                 .replace(regex3, "\\1")
+                .replace(".", ",")
             << lineBreaker;
         out << "cellsize "
             << QString()
@@ -106,6 +108,7 @@ private:
                 .replace(regex, "\\1")
                 .replace(regex2, "")
                 .replace(regex3, "\\1")
+                .replace(".", ",")
             << lineBreaker;
         out << "NODATA_value " << raster.getNoDataValue() << lineBreaker;
 

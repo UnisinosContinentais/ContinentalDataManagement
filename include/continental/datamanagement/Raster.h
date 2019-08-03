@@ -45,6 +45,11 @@ public:
         reset(rows, cols, xOrigin, yOrigin, cellSize, noData);
     }
 
+    ~Raster()
+    {
+
+    }
+
     /// <summary>
     /// Retorna o número de linhas
     /// </summary>
@@ -107,16 +112,17 @@ public:
     inline T calculateMaxValue() const
     {
         auto maxValue = m_data[0];
-        for (auto item : m_data)
+        for (size_t i = 0; i < getTotalCells(); i++)
         {
-            maxValue = std::max(maxValue, item);
+            maxValue = std::max(maxValue, m_data[i]);
         }
+
         return maxValue;
     }
 
     inline T getData(const size_t position) const
     {
-        assert(position < m_data.size());
+        assert(position < getTotalCells());
 
         return m_data[position];
     }
@@ -133,7 +139,7 @@ public:
 
     inline void setData(const size_t position, const T value)
     {
-        assert(position < m_data.size());
+        assert(position < getTotalCells());
 
         m_data[position] = value;
     }
@@ -143,7 +149,7 @@ public:
         setData(row * m_cols + column, value);
     }
 
-    inline const std::vector<T>& getData() const
+    inline const std::vector<T> getData() const
     {
         return m_data;
     }
@@ -156,7 +162,6 @@ public:
         m_y_origin = yOrigin;
         m_cellSize = cellSize;
         m_noDataValue = noData;
-        m_data.clear();
         m_data.resize(rows * cols);
     }
 };
