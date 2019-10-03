@@ -1,0 +1,6 @@
+# Configura diretório de instalação (CMAKE_INSTALL_PREFIX).
+IF(CMAKE_BUILD_TYPE MATCHES Debug)
+	set(CMAKE_INSTALL_PREFIX [ROOT_DIR]/externalsUnisinos/win64-msvc2015/ContinentalDataManagement/install/debug)
+else()
+	set(CMAKE_INSTALL_PREFIX [ROOT_DIR]/externalsUnisinos/win64-msvc2015/ContinentalDataManagement/install/release)
+endif()
