@@ -1,3 +1,5 @@
 /.project
 
 CMakeLists.txt.user
+CMakeLists.config
+
