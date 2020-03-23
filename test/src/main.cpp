@@ -5,7 +5,7 @@ using namespace continental::datamanagement;
 
 TEST(ContinentalDataManagementTest, RasterFileRead)
 {
-    auto raster = RasterFile<short>::loadRasterByFile("D:\\Git\\continentaldatamanagement\\continentaldatamanagement\\assets\\rioSinos.asc");
+    auto raster = RasterFile<short>::loadRasterByFile("C:/Git/ContinentalDataManagement/ContinentalDataManagement/assets/rioSinos.asc");
 
     EXPECT_EQ(1546, raster.getCols());
     EXPECT_EQ(931, raster.getRows());
@@ -20,15 +20,15 @@ TEST(ContinentalDataManagementTest, RasterFileRead)
 
 TEST(ContinentalDataManagementTest, RasterFileWrite)
 {
-    auto raster = RasterFile<short>::loadRasterByFile("D:\\Git\\continentaldatamanagement\\continentaldatamanagement\\assets\\rioSinos.asc");
+    auto raster = RasterFile<short>::loadRasterByFile("C:/Git/ContinentalDataManagement/ContinentalDataManagement/assets/rioSinos.asc");
 
     raster.setData(1, 0, 100);
     EXPECT_EQ(100, raster.getData(1, 0));
     EXPECT_EQ(100, raster.getData(1546));
 
-    RasterFile<short>::writeData(raster, "D:\\Git\\continentaldatamanagement\\continentaldatamanagement\\assets\\rioSinosGenerated.asc");
+    RasterFile<short>::writeData(raster, "C:/Git/ContinentalDataManagement/ContinentalDataManagement/assets/rioSinosGenerated.asc");
 
-    auto rasterGenerated = RasterFile<short>::loadRasterByFile("D:\\Git\\continentaldatamanagement\\continentaldatamanagement\\assets\\rioSinosGenerated.asc");
+    auto rasterGenerated = RasterFile<short>::loadRasterByFile("C:/Git/ContinentalDataManagement/ContinentalDataManagement/assets/rioSinosGenerated.asc");
     EXPECT_EQ(100, rasterGenerated.getData(1, 0));
     EXPECT_EQ(100, rasterGenerated.getData(1546));
 }

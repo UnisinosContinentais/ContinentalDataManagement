@@ -53,10 +53,6 @@ target_compile_features(ContinentalDataManagement PRIVATE cxx_auto_type)
 target_compile_options(ContinentalDataManagement PRIVATE $<$<CXX_COMPILER_ID:GNU>:-Wall>)
 
 target_link_libraries(ContinentalDataManagement
-#    PUBLIC
-#        Boost::boost RapidJSON::RapidJSON
-#    PRIVATE
-#        Boost::regex
     PUBLIC Qt5::Core
 )
 
@@ -103,19 +99,11 @@ configure_package_config_file(${CMAKE_CURRENT_LIST_DIR}/cmake/ContinentalDataMan
 
 #Install the config, configversion and custom find modules
 install(FILES
-#     ${CMAKE_CURRENT_LIST_DIR}/cmake/FindRapidJSON.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/ContinentalDataManagementConfig.cmake
     ${CMAKE_CURRENT_BINARY_DIR}/ContinentalDataManagementConfigVersion.cmake
     DESTINATION ${INSTALL_CONFIGDIR}
 )
 
-##############################################
-## Exporting from the build tree
-# configure_file(
-#     ${CMAKE_CURRENT_LIST_DIR}/cmake/FindRapidJSON.cmake
-#     ${CMAKE_CURRENT_BINARY_DIR}/FindRapidJSON.cmake
-#     COPYONLY)
-
 export(EXPORT ContinentalDataManagement-targets FILE ${CMAKE_CURRENT_BINARY_DIR}/ContinentalDataManagementTargets.cmake NAMESPACE ContinentalDataManagement::)
 
-# add_subdirectory(test)
+add_subdirectory(test)
