@@ -56,7 +56,7 @@ private:
                 const auto line = QString::fromStdString(fs.readLine().toStdString()).replace(regexLine, "").split(' ');
                 for (size_t j = 0; j < cols; ++j)
                 {
-                    raster.setData(i, j, static_cast<T>(line[static_cast<int>(j)].toFloat()));
+                    raster.setData(i, j, static_cast<T>(line[static_cast<int>(j)].toDouble()));
                 }
             }
         }
