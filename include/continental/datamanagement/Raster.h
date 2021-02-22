@@ -37,7 +37,7 @@ private:
 public:
     Raster()
     {
-        static_assert(std::is_same<T, short>::value || std::is_same<T, float>::value || std::is_same<T, double>::value, "Raster only accepts short, float or double.");
+        static_assert(std::is_same<T, int>::value || std::is_same<T, short>::value || std::is_same<T, float>::value || std::is_same<T, double>::value, "Raster only accepts short, float or double.");
     }
 
     Raster(size_t rows, size_t cols, double xOrigin, double yOrigin, double cellSize, int noData) : Raster()
